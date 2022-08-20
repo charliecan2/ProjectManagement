@@ -35,9 +35,16 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     client: {
       type: ClientType,
-      args: { id: { type: GraphQLID }},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args){
         return clients.find(client => client.id === args.id)
+      }
+    },
+    projects: {
+      type: ProjectType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args){
+        return projects.find(project => project.id === args.id)
       }
     }
   }
