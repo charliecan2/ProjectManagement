@@ -1,16 +1,43 @@
 import { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useMutation } from '@apollo/client';
+import { ADD_CLIENT } from './mutations/clientMutations'
+import { GET_CLIENTS } from '../queries/clientQueries'
 
 function AddClientsModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
+  const [addClient] = useMutation(ADD_CLIENT, {
+    // Variables we will be passing into addClient
+    variables: { name, email, phone },
+
+    // addClient will return to us the data from addClient mutation
+    update(cache, { data: { addClient }}){
+      // Reading the cache from GET_CLIENTS
+      const { clients } = cache.readQuery({ query: GET_CLIENTS });
+
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        // Here, we're writing onto the clients from GET_CLIENTS
+        data: { clients: [...clients, addClient]}
+      })
+    }
+  })
+
   const submitClient = (e) => {
     e.preventDefault();
 
-    console.log(name, email, phone)
+    if(name === '' || email === '' || phone === ''){
+      return alert('Please fill in all fields');
+    }
+
+    addClient(name, email, phone);
+
+    setName('');
+    setEmail('');
+    setPhone('');
   }
 
   return (
