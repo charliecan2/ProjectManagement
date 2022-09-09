@@ -1,9 +1,16 @@
 import { useQuery } from '@apollo/client'
 import { GET_PROJECTS } from '../queries/projectQueries'
-import { FaTrash } from 'react-icons/fa'
+import ProjectRow from './ProjectRow';
+import Spinner from './Spinner';
 
 function Projects() {
   const { error, loading, data } = useQuery(GET_PROJECTS);
+
+  if(loading){
+    return(
+      <Spinner />
+    )
+  }
 
   return (
     <div>{!loading && !error && (
@@ -19,17 +26,7 @@ function Projects() {
         </thead>
         <tbody>
           {data.projects.map(project => (
-            <tr>
-              <td>{project.name}</td>
-              <td>{project.description}</td>
-              <td>{project.status}</td>
-              <td>{project.client.name}</td>
-              <td>
-                <button className="btn btn-danger btn-sm">
-                  <FaTrash />
-                </button>
-              </td>
-            </tr>
+            <ProjectRow key={project.id} project={project}/>
           ))}
         </tbody>
       </table>
