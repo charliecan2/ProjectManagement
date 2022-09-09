@@ -12,8 +12,14 @@ function Projects() {
     )
   }
 
+  if(error){
+    return(
+      <p>Something Went Wrong</p>
+    )
+  }
+
   return (
-    <div>{!loading && !error && (
+    <div>{!loading && !error && data.projects.length > 0 ? (
       <table className='table table-hover mt-3'>
         <thead>
           <tr>
@@ -30,6 +36,8 @@ function Projects() {
           ))}
         </tbody>
       </table>
+    ) : (
+      <div>No Projects to display</div>
     )}
     </div>
   )
