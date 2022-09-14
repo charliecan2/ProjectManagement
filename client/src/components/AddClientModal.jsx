@@ -68,7 +68,7 @@ function AddClientsModal() {
                   <label className='from-label'>
                     Email
                   </label>
-                  <input type="text" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className="mb-3">
                   <label className='from-label'>
