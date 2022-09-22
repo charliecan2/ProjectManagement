@@ -54,13 +54,31 @@ function AddProjectModal() {
     <>
       {!loading && !error && (
       <>
-        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+        <button onClick={() => {}} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectModal">
           <div className="d-flex align-items-center">
             <FaList className='icon' />
             <div>New Project</div>
           </div>
         </button>
-  
+        
+        {data.clients.length === 0 ?
+        <div className="modal fade" id="addProjectModal" tabIndex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="addProjectModalLabel">No Clients Found</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                <p>To begin, please add a Client first before starting a Project.</p>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        :
         <div className="modal fade" id="addProjectModal" tabIndex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
           <div className="modal-dialog">
             <div className="modal-content">
@@ -113,6 +131,7 @@ function AddProjectModal() {
             </div>
           </div>
         </div>
+        }
       </>
       )}
     </>
